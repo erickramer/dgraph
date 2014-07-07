@@ -17,6 +17,9 @@ dgraph <- function(E, V, directed){
   if(!all(levels(V) %in% c(levels(E$V1), levels(E$V2)))) 
     warning("Extra vertices found in edge list")
   
+  g$E$V1 = factor(g$E$V1)
+  g$E$V2 = factor(g$E$V2)
+  
   class(g) = "dgraph"
   g
 }
@@ -60,5 +63,5 @@ add.vertices <- function(g, V){
 }
 
 add.edges <- function(g, E){
-  dgraph(rbind(g$E, E), unique(g$V$V, E[,1], E[,2]), g$directed)
+  dgraph(rbind(g$E, E), unique(c(g$V$V, E[,1], E[,2])), g$directed)
 }

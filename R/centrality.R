@@ -1,11 +1,19 @@
 degree <- function(g, type="inbound"){
+  
   s = function(type) switch(type,
-                            inbound = g$E %>% select(V=V2, W=W),
-                            outbound = g$E %>% select(V=V1, W=W),
+                            inbound = g$E %>% select(V=V1, W=W),
+                            outbound = g$E %>% select(V=V2, W=W),
                             both = rbind(s("inbound"), s("outbound")))
           
-  type = if(g$directed) "inbound" else type
-  s(type) %>% group_by(V) %>% summarize(sum(W))
+  type = if(!g$directed) "both" else type
+  
+  deg = type %>% 
+    s %>%
+    rbind(data.frame(V=g$V$V, W=0)) %>%
+    group_by(V) %>% 
+    summarize(degree=sum(W))
+  
+  deg
 }
 
 page.rank <- function(g, threshold=1e-6){
