@@ -1,0 +1,10 @@
+Package: dgraph
+Type: Package
+Title: Implements graph algorithms
+Version: 0.1
+Date: 2014-06-27
+Author: Eric Kramer
+Maintainer: Eric Kramer <ericransomkramer@gmail.com>
+Description: Implements graph algorithms
+License: The "GNU General Public License" version 3
+Imports: dplyr
